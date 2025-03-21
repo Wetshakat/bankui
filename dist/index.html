@@ -45,9 +45,9 @@
 
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56ZM222-624q-29 26-53 57t-41 67q50 101 143.5 160.5T480-280q20 0 39-2.5t39-5.5l-36-38q-11 3-21 4.5t-21 1.5q-75 0-127.5-52.5T300-500q0-11 1.5-21t4.5-21l-84-82Zm319 93Zm-151 75Z"/></svg>
         </div>
-        <div class="font-sans font-bold text-white text-2xl ml-8 mt-6 flex gap-2 items-center">
-            <h2 >$81,000</h2>
-            <svg  xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
+        <div class="font-sans font-bold text-white text-2xl ml-8 mt-6 gap-2 items-center">
+            <h2 id="balance">$</h2>
+           <small id="account-number">account-number</small>
         </div>
        </div>
 
@@ -59,7 +59,7 @@
             </div>
 
            <div>
-            <button class="text-blue-600 flex bg-white w-[110px] hover:bg-blue-400 mt-6 h-[30px] p-1 rounded-lg" type="submit">
+            <button id="addFunds" class="text-blue-600 flex bg-white w-[110px] hover:bg-blue-400 mt-6 h-[30px] p-1 rounded-lg" type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#0000F5"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
                  Add Funds
             </button>
@@ -71,26 +71,33 @@
        <div class="w-[100%] h-[18vh] bg-blue-800 rounded-lg mt-9 p-6 flex justify-center gap-[80px]">
         <!-- To RMB -->
         <div class="flex flex-col items-center">
-            <svg class="bg-blue-200 p-4 hover:bg-white rounded-lg" xmlns="http://www.w3.org/2000/svg" height="64px" viewBox="0 -960 960 960" width="64px" fill="#0000F5">
-                <path d="M320-400h320v-19q0-42-42.5-65T480-507q-75 0-117.5 23T320-419v19Zm160-173q30.52 0 52.26-21.74Q554-616.47 554-647q0-30.53-21.74-52.26Q510.52-721 480-721t-52.26 21.74Q406-677.53 406-647q0 30.53 21.74 52.26Q449.48-573 480-573ZM80-80v-740q0-24 18-42t42-18h680q24 0 42 18t18 42v520q0 24-18 42t-42 18H240L80-80Zm134-220h606v-520H140v600l74-80Zm-74 0v-520 520Z"/>
-            </svg>
-            <p class="text-white font-sans font-bold text-xl mt-2">To RMB</p>
+            <button id="rapayLoan" class="bg-blue-200 p-3 items-center hover:bg-white h-[70px] w-[70px] rounded-lg" type="submit">
+                <svg  xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="40px" fill="#0000F5">
+                    <path d="M320-400h320v-19q0-42-42.5-65T480-507q-75 0-117.5 23T320-419v19Zm160-173q30.52 0 52.26-21.74Q554-616.47 554-647q0-30.53-21.74-52.26Q510.52-721 480-721t-52.26 21.74Q406-677.53 406-647q0 30.53 21.74 52.26Q449.48-573 480-573ZM80-80v-740q0-24 18-42t42-18h680q24 0 42 18t18 42v520q0 24-18 42t-42 18H240L80-80Zm134-220h606v-520H140v600l74-80Zm-74 0v-520 520Z"/>
+                </svg>
+            </button>
+            <small class="text-white font-sans mt-2"> Repay Loan</small>
+            
         </div>
     
         <!-- To Bank -->
-        <div class="flex flex-col items-center">
-            <svg class="bg-blue-200 p-4 hover:bg-white rounded-lg" xmlns="http://www.w3.org/2000/svg" height="64px" viewBox="0 -960 960 960" width="64px" fill="#0000F5">
-                <path d="M220-180h150v-250h220v250h150v-390L480-765 220-570v390Zm-60 60v-480l320-240 320 240v480H530v-250H430v250H160Zm320-353Z"/>
-            </svg>
-            <p class="text-white font-sans font-bold text-xl mt-2">To Bank</p>
+        <div id="tftobank" class="flex flex-col items-center">
+            <button class="bg-blue-200 p-3 items-center hover:bg-white h-[70px] w-[70px] rounded-lg" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="40px" fill="#0000F5">
+                    <path d="M220-180h150v-250h220v250h150v-390L480-765 220-570v390Zm-60 60v-480l320-240 320 240v480H530v-250H430v250H160Zm320-353Z"/>
+                </svg>
+            </button>
+            <small class="text-white font-sans  mt-2"> To Bank</small>
         </div>
     
         <!-- Withdraw -->
         <div class="flex flex-col items-center">
-            <svg class="bg-blue-200 p-4 hover:bg-white rounded-lg" xmlns="http://www.w3.org/2000/svg" height="64px" viewBox="0 -960 960 960" width="64px" fill="#0000F5">
-                <path d="M480-80 317-243l44-44 89 89v-189h60v189l89-89 44 44L480-80ZM238-322 80-480l159-159 44 44-85 85h189v60H198l84 84-44 44Zm484 0-44-44 84-84H574v-60h188l-84-84 44-44 158 158-158 158ZM450-574v-188l-84 84-44-44 158-158 158 158-44 44-84-84v188h-60Z"/>
-            </svg>
-            <p class="text-white font-sans font-bold text-xl mt-2">Withdraw</p>
+            <button id="withdraw" class="bg-blue-200 p-3 items-center hover:bg-white h-[70px] w-[70px] rounded-lg" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="40px" fill="#0000F5">
+                    <path d="M480-80 317-243l44-44 89 89v-189h60v189l89-89 44 44L480-80ZM238-322 80-480l159-159 44 44-85 85h189v60H198l84 84-44 44Zm484 0-44-44 84-84H574v-60h188l-84-84 44-44 158 158-158 158ZM450-574v-188l-84 84-44-44 158-158 158 158-44 44-84-84v188h-60Z"/>
+                </svg>
+            </button>
+            <small class="text-white font-sans  mt-2"> Withdraw</small>
         </div>
     </div>
     
@@ -99,7 +106,7 @@
             <div class="grid grid-cols-4 gap-[50px] text-center">
                 <!-- Airtime -->
                 <div class="flex flex-col items-center">
-                    <button class="bg-blue-200 p-3 rounded-md hover:bg-white">
+                    <button id="airtime" class="bg-blue-200 p-3 rounded-md hover:bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#0000F5">
                             <path d="M160-160v-320h140v320H160Zm250 0v-640h140v640H410Zm250 0v-440h140v440H660Z"/>
                         </svg>
@@ -109,7 +116,7 @@
         
                 <!-- Data -->
                 <div class="flex flex-col items-center">
-                    <button class="bg-blue-200 p-3 rounded-md hover:bg-white">
+                    <button id="data" class="bg-blue-200 p-3 rounded-md hover:bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#0000F5">
                             <path d="M480-120q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM254-346l-84-86q59-59 138.5-93.5T480-560q92 0 171.5 35T790-430l-84 84q-44-44-102-69t-124-25q-66 0-124 25t-102 69Z"/>
                         </svg>
@@ -119,7 +126,7 @@
         
                 <!-- Betting -->
                 <div class="flex flex-col items-center">
-                    <button class="bg-blue-200 p-3 rounded-md hover:bg-white">
+                    <button id="betting" class="bg-blue-200 p-3 rounded-md hover:bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#0000F5">
                             <path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm200-500 54-18 16-54q-32-48-77-82.5T574-786l-54 38v56l160 112Z"/>
                         </svg>
@@ -129,7 +136,7 @@
         
                 <!-- TV -->
                 <div class="flex flex-col items-center">
-                    <button class="bg-blue-200 p-3 rounded-md hover:bg-white">
+                    <button id="tv" class="bg-blue-200 p-3 rounded-md hover:bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#0000F5">
                             <path d="M326.67-120v-80h-180q-27 0-46.84-19.83Q80-239.67 80-266.67v-506.66q0-27 19.83-46.84Q119.67-840 146.67-840h666.66q27 0 46.84 19.83Q880-800.33 880-773.33v506.66q0 27-19.83 46.84Q840.33-200 813.33-200h-180v80H326.67Z"/>
                         </svg>
@@ -139,7 +146,7 @@
         
                 <!-- SafeBox -->
                 <div class="flex flex-col items-center">
-                    <button class="bg-blue-200 p-3 rounded-md hover:bg-white">
+                    <button id="saving" class="bg-blue-200 p-3 rounded-md hover:bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#0000F5">
                             <path d="M840-683v503q0 24-18 42t-42 18H180q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h503l157 157Z"/>
                         </svg>
@@ -148,8 +155,8 @@
                 </div>
         
                 <!-- Loan -->
-                <div class="flex flex-col items-center">
-                    <button class="bg-blue-200 p-3 rounded-md hover:bg-white">
+                <div  class="flex flex-col items-center">
+                    <button id="loan" class="bg-blue-200 p-3 rounded-md hover:bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#0000F5">
                             <path d="M332-120q-88 0-150-62t-62-150q0-38 13-72.5t36-63.5l152-182-95-190h509l-95 190 151 182q24 29 36.5 63.5T841-332q0 88-62 150t-150 62H332Z"/>
                         </svg>
@@ -159,7 +166,7 @@
         
                 <!-- Refer -->
                 <div class="flex flex-col items-center">
-                    <button class="bg-blue-200 p-3 rounded-md hover:bg-white">
+                    <button id="refer" class="bg-blue-200 p-3 rounded-md hover:bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#0000F5">
                             <path d="M341-67q-48 0-85-28.5T204-169q-16 26-39 40.5T110-114q-47 0-78-33T1-225q0-49 30.5-77.5T109-332q-18-20-28-46.5T71-432q0-38 19.5-71t55.5-53q5 13 12.5 28t15.5 26q-20 13-31.5 32T131-430q0 60 48.5 75.5T273-330l11 19Z"/>
                         </svg>
@@ -169,7 +176,7 @@
         
                 <!-- Lock -->
                 <div class="flex flex-col items-center">
-                    <button class="bg-blue-200 p-3 rounded-md hover:bg-white">
+                    <button id="lock" class="bg-blue-200 p-3 rounded-md hover:bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#0000F5">
                             <path d="m423-329 277-277-43-43-234 234-121-121-42 42 163 165ZM180-120q-24.75 0-42.37-17.63Q120-155.25 120-180v-600q0-24.75 17.63-42.38Q155.25-840 180-840h205q5-35 32-57.5t63-22.5q36 0 63 22.5t32 57.5h205q24.75 0 42.38 17.62Q840-804.75 840-780v600q0 24.75-17.62 42.37Q804.75-120 780-120H180Z"/>
                         </svg>
@@ -180,11 +187,14 @@
         </div>
         
         <div>
-            <button class="w-[100px] h-[40px] rounded-lg mt-4 ml-[400px] hover:bg-red-500 bg-red-700 text-white" type="submit">log out</button>
+            <button id="logout" class="w-[100px] h-[40px] rounded-lg mt-4 ml-[400px] hover:bg-red-500 bg-red-700 text-white" type="submit">log out</button>
         </div>
         
         
         
     </div>
+
+    <script src="/src/script.js" defer></script>
+
 </body>
 </html>
