@@ -4,31 +4,35 @@ document.addEventListener("DOMContentLoaded", function () {
     const loanBtn = document.getElementById("loan");
     const repayLoanBtn = document.getElementById("repayLoan");
     const withdrawBtn = document.getElementById("withdraw");
+    const transferBtn = document.getElementById("transfer");
     const logoutBtn = document.getElementById("logout");
     
     const usernameDisplay = document.querySelector(".text-gray-600"); 
     const accountNumberDisplay = document.getElementById("account-number");
      
-    const loggedInEmail = JSON.parse(localStorage.getItem("loggedInUser"));
-    if (!loggedInEmail) {
+    let users = JSON.parse(localStorage.getItem("userData")) || [];
+    let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!loggedInUser) {
         alert("No user logged in. Redirecting to login...");
         window.location.href = "login.html";
         return;
     }
 
-    usernameDisplay.innerText = `Hi, ${loggedInEmail.fullName}`;
-    accountNumberDisplay.innerText = loggedInEmail.accountNumber;
-    let balance = loggedInEmail.balance || 0;
-    let loanAmount = loggedInEmail.loanAmount || 0;
+    usernameDisplay.innerText = `Hi, ${loggedInUser.fullName}`;
+    accountNumberDisplay.innerText = `Acc No: ${loggedInUser.accountNumber}`;
+    
+    let userData = users.find(user => user.accountNumber === loggedInUser.accountNumber) || loggedInUser;
+    let balance = userData.balance !== undefined ? userData.balance : 0;
+    let loanAmount = userData.loanAmount || 0;
     
     function updateBalanceDisplay() {
         balanceText.innerText = `$${balance.toFixed(2)}`;
-        loggedInEmail.balance = balance;
-        loggedInEmail.loanAmount = loanAmount;
+        loggedInUser.balance = balance;
+        loggedInUser.loanAmount = loanAmount;
         
-        let users = JSON.parse(localStorage.getItem("userData")) || [];
-        users = users.map(user => user.email === loggedInEmail.email ? loggedInEmail : user);
+        users = users.map(user => user.accountNumber === loggedInUser.accountNumber ? { ...user, balance, loanAmount } : user);
         localStorage.setItem("userData", JSON.stringify(users));
+        localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
     }
 
     function handleTransaction(type) {
@@ -85,13 +89,50 @@ document.addEventListener("DOMContentLoaded", function () {
         updateBalanceDisplay();
     }
 
+    function transferMoney() {
+        let recipientAccNumber = prompt("Enter recipient's account number:").trim();
+        let amount = parseFloat(prompt("Enter amount to transfer:").trim());
+        
+        if (!recipientAccNumber || isNaN(amount) || amount <= 0) {
+            alert("Invalid input. Please enter valid details.");
+            return;
+        }
+        
+        if (amount > balance) {
+            alert("Insufficient balance for this transfer.");
+            return;
+        }
+        
+        let recipient = users.find(user => user.accountNumber === recipientAccNumber);
+        
+        if (!recipient) {
+            alert("Recipient not found. Transfers can only be made to registered users.");
+            return;
+        }
+        
+        balance -= amount;
+        recipient.balance = (recipient.balance || 0) + amount;
+        
+        users = users.map(user => 
+            user.accountNumber === recipientAccNumber ? { ...recipient } : user
+        );
+        users = users.map(user => 
+            user.accountNumber === loggedInUser.accountNumber ? { ...loggedInUser, balance } : user
+        );
+        
+        localStorage.setItem("userData", JSON.stringify(users));
+        updateBalanceDisplay();
+        alert(`$${amount} transferred to account ${recipientAccNumber} successfully!`);
+    }
+
     addFundsBtn.addEventListener("click", () => handleTransaction("add"));
     loanBtn.addEventListener("click", () => handleTransaction("loan"));
     repayLoanBtn.addEventListener("click", () => handleTransaction("repayLoan"));
     withdrawBtn.addEventListener("click", () => handleTransaction("withdraw"));
+    transferBtn.addEventListener("click", transferMoney);
     
     logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("loggedInUser"); 
+        localStorage.setItem("loggedInUser", JSON.stringify(users.find(user => user.accountNumber === loggedInUser.accountNumber)));
         alert("Logged out successfully!");
         window.location.href = "login.html";
     });
