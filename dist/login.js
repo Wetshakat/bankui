@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("loginForm");
 
@@ -8,11 +7,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const email = document.getElementById("email").value.trim().toLowerCase(); 
         const password = document.getElementById("password").value.trim();
 
-        
-        const users = JSON.parse(localStorage.getItem("users")) || [];
+       
+        if (!email || !password) {
+            alert("Please fill in both email and password.");
+            return;
+        }
+
+        const users = JSON.parse(localStorage.getItem("userData")) || [];
         console.log("Stored Users:", users); 
 
-        
         const user = users.find(user => user.email === email);
 
         if (!user) {
@@ -22,13 +25,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("Found User:", user); 
 
+       
         if (user.password !== password) {
             alert("Incorrect password. Try again!");
             return;
         }
 
+        
         localStorage.setItem("loggedInUser", JSON.stringify(user));
-
 
         alert(`Welcome, ${user.fullName}`);
         window.location.href = "index.html"; 
