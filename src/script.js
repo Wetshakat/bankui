@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const usernameDisplay = document.querySelector(".text-gray-600");
   const accountNumberDisplay = document.getElementById("account-number");
-  const loanText = document.getElementById("loan-amount"); 
- 
+  const loanText = document.getElementById("loan-amount");
+
   let users = JSON.parse(localStorage.getItem("userData")) || [];
   let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   if (!loggedInUser) {
@@ -30,16 +30,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateBalanceDisplay() {
     balanceText.innerText = `$${balance.toFixed(2)}`;
-    loanText.innerText = `Loan: $${loanAmount.toFixed(2)}`; 
+    loanText.innerText = `Loan: $${loanAmount.toFixed(2)}`;
     loggedInUser.balance = balance;
     loggedInUser.loanAmount = loanAmount;
 
-   
     users = users.map((user) =>
       user.accountNumber === loggedInUser.accountNumber
         ? { ...user, balance, loanAmount }
         : user
     );
+
     localStorage.setItem("userData", JSON.stringify(users));
     localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
   }
@@ -77,6 +77,14 @@ document.addEventListener("DOMContentLoaded", function () {
         balance -= amount;
         alert(`$${amount} withdrawn successfully!`);
         break;
+        case "transfer":
+          if (amount > balance) {
+            alert("Insufficient balance!");
+            return;
+          }
+          balance -= amount;
+          alert(`$${amount} withdrawn successfully!`);
+          break;
       case "repayLoan":
         if (loanAmount === 0) {
           alert("You have no loan to repay!");
@@ -139,13 +147,9 @@ document.addEventListener("DOMContentLoaded", function () {
       return user;
     });
 
-    localStorage.setItem("userData", JSON.stringify(users));
-    localStorage.setItem(
-      "loggedInUser",
-      JSON.stringify({ ...loggedInUser, balance })
-    );
-
+    
     updateBalanceDisplay();
+
     alert(
       `$${amount} transferred to account ${recipientAccNumber} successfully!`
     );
@@ -163,5 +167,5 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = "login.html";
   });
 
-  updateBalanceDisplay();
+  updateBalanceDisplay(); 
 });
